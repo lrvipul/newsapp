@@ -30,16 +30,20 @@ export class News extends Component {
   }
 
   async updateNews(){
+    this.props.setProgress(10);
     // this.setState({ loading: true });
     // APi Key : 253f697cb69d4e51807f44ae234e6002 / Vips Key :  41363d0d76ab4c08a6ea15df1d8ec718
     let apiUrl = `https://newsapi.org/v2/top-headlines?category=${this.props.category}&country=${this.props.country}&apiKey=253f697cb69d4e51807f44ae234e6002&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.props.setProgress(30);
     let data = await fetch(apiUrl);
     let parsedData = await data.json();
+    this.props.setProgress(50);
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false,
     });
+    this.props.setProgress(100);
     
   }
 
